@@ -1,0 +1,15 @@
+Written python functions to preprocess the tweets ​
+
+Integrate Postgres with the backend to store tweets, user id and location​
+
+Implemented functions in Django framework to fetch the tweets and display on the dashboard ​
+
+Setup the env and settings for Django and postgress​
+
+Studied Django framework and how it works​
+
+Applied for the upgraded dev twitter account for tweets ​
+
+Labeling the tweets data for training the model ​
+
+Build the frontend UI part for the dashboard 

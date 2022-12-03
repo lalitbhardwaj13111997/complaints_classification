@@ -1,0 +1,257 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tweets_Complaint_portal</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="{% static '/css/home.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Auto width -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #ffffff;
+      height: 100%;
+    }
+
+    .
+
+
+    .lalit{
+    
+       background-color: #ffffff;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Tata Motors</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="#">tweets</a></li>
+        <li><a href="#">Sentiment</a></li>
+        <li><a href="#">Geo</a></li>
+        <li><a href="#">Complaints</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <img src="{% static '/images/Tata-Logo.jpg' %}" width='140' height='100'>
+      
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href={% url 'tweets' %}>Location</a></li>
+        <li><a href="#section3">Sentiment</a></li>
+        <li><a href={% url 'recent_tweets' %}>Recent Tweets</a></li>
+        <li><a href="#">Complaints</a></li>
+      </ul><br>
+    </div>
+    <br>
+    
+    <div class="col-sm-9">
+      <div class="well">
+        <b style='font-size:22px;'>Machine Learning Model For Customer Complaints Classification</b>
+        <img src="{% static '/images/twitter.png' %}" width='70' height='80'><br>
+        
+        <p>Last Updated On : <span id='date-time'></span></p>
+
+        <script>
+          var current = new Date();
+          time=String(current)
+          loc=time.slice(0,25)
+
+
+
+          
+          document.getElementById('date-time').innerHTML=loc;
+        </script>  
+        
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Zconnect Complaints</h4>
+            <b style="color:red;">{{value}}</b> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Positive Sentiment</h4>
+            <b style="color:Green;">{{positive}}</b> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Negative Sentiment</h4>
+            <b style="color:red;">{{negative}}</b> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Neutral Sentiment</h4>
+            <b style="color:orange;">{{neutral}}</b> 
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="well">
+            <h4>Location of Most Tweets</h4>
+            <b style="color:green">{{location}}</b> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <h4>Nexon & Tigor Ev Complaints</h4>
+            <b style="color:red;">{{negative}}</b> 
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <h4>Complaints Pending</h4>
+            <b style="color:red;">100%</b> 
+            
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="well">
+            <h4>Download Report </h4>
+             
+            <button id='GetFile'class="btn"><i class="fa fa-download"></i> Download</button>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+            <script>
+            $('#GetFile').on('click', function () {
+                $.ajax({
+                    url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/172905/test.pdf',
+                    method: 'GET',
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (data) {
+                        var a = document.createElement('a');
+                        var url = window.URL.createObjectURL(data);
+                        a.href = url;
+                        a.download = 'Twitter_Analytics.pdf';
+                        document.body.append(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
+                    }
+                });
+            });
+            </script>
+                                         
+
+
+
+            
+          </div> 
+
+
+
+
+        </div>
+        <div class="row-text-center">
+          <div class="col-sm-5">
+            <div class="well">
+              <h4><b>             Model Accuracy </b> </h4>
+              <h4><b><p style="color:Green;">{{score}}%</p> </b></h4>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="well">
+              <h4>Complaints Resolved</h4>
+              <b style="color:green;">0%</b> 
+              
+            </div>
+          </div>
+        </div>
+        <div class="center-block">
+          <div class="col-sm-10">
+            <div class="title">
+              <b style='font-size:30px'>Analytics Graphs </b>
+              <img src="{% static '/images/ana.gif' %}" width='500' height='400'> 
+            </div>
+        
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="title">
+              <b>Complaints vs Non-Complaints</b>
+
+              <img src="data:image/png;base64 , {{pie|safe}}"/>
+              
+            </div>
+        
+          </div>
+
+          <div class="col-sm-4">
+            <div class="title">
+
+              <b>Sentiments Histogram</b>
+
+              <img src="data:image/png;base64 , {{chart|safe}}"/>
+              
+              
+            </div>
+        
+          </div>
+          <div class="col-sm-4">
+            <div class="title">
+
+              <b>Location-wise Data</b>
+
+              <img src="data:image/png;base64 , {{chart1|safe}}"/>
+              
+              
+            </div>
+        
+          </div>
+          
+        </div>
+
+
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+</body>
+</html>
